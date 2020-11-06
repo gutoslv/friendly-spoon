@@ -1,0 +1,44 @@
+{
+	"id": "85889bc6-e333-4e7b-9a45-b7303688c779",
+	"name": "Dummy Env",
+	"values": [
+		{
+			"key": "baseUrl",
+			"value": "http://dummy.restapiexample.com",
+			"enabled": true
+		},
+		{
+			"key": "employeeId",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "employeeName",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "employeeSalary",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "employeeNewSalary",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "employeeNewAge",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "employeeAge",
+			"value": "",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2020-11-06T02:31:16.459Z",
+	"_postman_exported_using": "Postman/7.32.0-canary04"
+}

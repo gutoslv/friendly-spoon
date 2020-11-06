@@ -1,0 +1,375 @@
+{
+	"info": {
+		"_postman_id": "55a7abb8-8da8-4313-89c7-29d7f2aaea5a",
+		"name": "Dummy Collection",
+		"description": "Collection made for example requests using http://dummy.restapiexample.com/",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create new employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6d51f5f1-d78e-40d0-8a07-64f86fcfdcd8",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test('it should return sucess status', () => {",
+							"    pm.expect(jsonData.status).to.eq('success')",
+							"})",
+							"",
+							"pm.test(\"Successful POST request\", () => {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);",
+							"});",
+							"",
+							"pm.environment.set(\"employeeId\", jsonData.data.id);",
+							"pm.environment.set(\"employeeName\", jsonData.data.name);",
+							"pm.environment.set(\"employeeSalary\", jsonData.data.salary);",
+							"pm.environment.set(\"employeeAge\", jsonData.data.age);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"dj GBR\",\n    \"salary\": 24000,\n    \"age\": 23\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/create",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"create"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create new employee - success case",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"dj GBR\",\n    \"salary\": 24000,\n    \"age\": 23\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/create",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"create"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private, max-age=31536000"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 06 Nov 2020 01:35:23 GMT"
+						},
+						{
+							"key": "Display",
+							"value": "staticcontent_sol"
+						},
+						{
+							"key": "Expires",
+							"value": "Sat, 06 Nov 2021 01:35:23 GMT"
+						},
+						{
+							"key": "Host-Header",
+							"value": "c2hhcmVkLmJsdWVob3N0LmNvbQ=="
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": ""
+						},
+						{
+							"key": "Response",
+							"value": "200"
+						},
+						{
+							"key": "Server",
+							"value": "nginx/1.16.0"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding,Origin"
+						},
+						{
+							"key": "X-Middleton-Display",
+							"value": "staticcontent_sol"
+						},
+						{
+							"key": "X-Middleton-Response",
+							"value": "200"
+						},
+						{
+							"key": "X-Ratelimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-Ratelimit-Remaining",
+							"value": "58"
+						},
+						{
+							"key": "X-Sol",
+							"value": "pub_site"
+						},
+						{
+							"key": "Content-Length",
+							"value": "128"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"name\": \"dj GBR\",\n        \"salary\": 24000,\n        \"age\": 23,\n        \"id\": 5672\n    },\n    \"message\": \"Successfully! Record has been added.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Update existing employee",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "8c64de3a-a2a2-4cb0-bf8d-f7a1ddda7221",
+						"exec": [
+							"pm.environment.set(\"employeeNewSalary\", 14500);",
+							"pm.environment.set(\"employeeNewAge\", 31);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "9f73cc5b-408b-4079-bb7f-9889e2cb6b77",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test('it should return sucess status', () => {",
+							"    pm.expect(jsonData.status).to.eq('success')",
+							"})",
+							"",
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('it should return sucess message', () => {",
+							"    pm.expect(jsonData.message).to.eq('Successfully! Record has been updated.')",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"salary\": {{employeeNewSalary}} ,\n    \"age\": {{employeeNewAge}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/update/{{employeeId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"update",
+						"{{employeeId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find a specific employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c6e53d2a-bc52-4bb7-9615-01ee1f67dd08",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test('it should return sucess status', () => {",
+							"    pm.expect(jsonData.status).to.eq('success')",
+							"})",
+							"",
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('it should return the updated salary', () => {",
+							"    pm.expect(jsonData.data.salary).to.eq(pm.environment.get(\"employeeNewSalary\"))",
+							"})",
+							"",
+							"pm.test('it should return the updated age', () => {",
+							"    pm.expect(jsonData.data.age).to.eq(pm.environment.get(\"employeeNewAge\"))",
+							"})",
+							"",
+							"pm.test('it should return sucess message', () => {",
+							"    pm.expect(jsonData.message).to.eq('Successfully! Record has been fetched.')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/employee/{{employeeId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employee",
+						"{{employeeId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "82018338-50da-45b2-a866-b9c22521732b",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('it should return sucess status', () => {",
+							"    pm.expect(jsonData.status).to.eq('success')",
+							"})",
+							"",
+							"pm.test('it should return sucess message', () => {",
+							"    pm.expect(jsonData.message).to.eq('Successfully! Deleted records.')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/delete/{{employeeId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"delete",
+						"{{employeeId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find an inexistent employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "82a643d9-a6b0-41bb-bd37-cf8b3c4c3829",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('it should return sucess status', () => {",
+							"    pm.expect(jsonData.status).to.eq('success')",
+							"})",
+							"",
+							"pm.test('it should return sucess message', () => {",
+							"    pm.expect(jsonData.message).to.eq('Successfully! Record has been fetched.')",
+							"});",
+							"",
+							"pm.test('it should return null data', () => {",
+							"    pm.expect(jsonData.data).to.eq(null)",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/employee/32321321312",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employee",
+						"32321321312"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
